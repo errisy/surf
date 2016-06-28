@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Typescript Translator for Code First, Remote Procedure Call and PHP</title>
+    <link rel="stylesheet" href="ext/bootstrap.css" type="text/css" />
+    <script type="text/javascript" src="ext/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="ext/bootstrap.min.js"></script>
+</head>
+<body>
+    <div ng-app="pcr" style="display:inline-block;width: 100%; align-content:center" ng-controller="root as app">
+        <div style="width: 33.3%;display:inline-block;float:left;border:1px solid #4444AA; border-radius: 5px;">
+            <h2>Code First Database Builder for MySQL</h2>
+            <div class="btn btn-primary" ng-click="app.cf.scan()">Scan for RPC files</div>
+            <div class="btn btn-primary" ng-click="app.cf.compile()">Compile files</div>
+            <table class="table table-condensed table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>
+                            <h4>Filenname</h4>
+                        </td>
+                        <td>
+                            <h4>Status</h4>
+                        </td>
+                        <td>
+                            <h4>Output</h4>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in app.cf.files track by $index">
+                        <td>
+                            <h4 class="text-primary">{{file.name}}</h4>
+                        </td>
+                        <td>
+                            <h4 ng-class="file.compiled && 'text-warning' || 'text-primary'">{{file.status}}</h4>
+                        </td>
+                        <td>
+                            <h4 class="text-primary" ng-repeat="name in file.output track by $index">{{name}}</h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>cf.html translates your typescript classes into .php class file, .d.ts definition file for creating or dropping data tables;</p>
+            <p>it compiler typescript files into php files; <span class="text-danger">generic types are not supported and will cause no code output; make sure this is no generic types in your typscript codes;</span></p>
+            <p>To mark a Typesript(*.ts) file for code firs, you must put '//cf' in the first line.</p>
+        </div>
+        <div style="width: 33.3%;display:inline-block;float:left;border:1px solid #44AA44; border-radius: 5px;">
+            <h2>Remote Procedure Call Builder</h2>
+
+            <div class="btn btn-primary" ng-click="app.rpc.scan()">Scan for RPC files</div>
+            <div class="btn btn-primary" ng-click="app.rpc.compile()">Compile files</div>
+            <table class="table table-condensed table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>
+                            <h4>Filenname</h4>
+                        </td>
+                        <td>
+                            <h4>Status</h4>
+                        </td>
+                        <td>
+                            <h4>Output</h4>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in app.rpc.files track by $index">
+                        <td>
+                            <h4 class="text-primary">{{file.name}}</h4>
+                        </td>
+                        <td>
+                            <h4 ng-class="file.compiled && 'text-warning' || 'text-primary'">{{file.status}}</h4>
+                        </td>
+                        <td>
+                            <h4 class="text-primary" ng-repeat="name in file.output track by $index">{{name}}</h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>rpc.html will translate remote procedure call interfaces into client classes and server dispatchers;</p>
+            <p>the client classes can be used to call server;</p>
+            <p>server dispatchers can not be used directly. you must implement server classes and compile them into php files;</p>
+            <p>To mark a Typesript(*.ts) file as RPC interface, you must put '//rpc' in the first line.</p>
+        </div>
+        <div style="width: 33.3%;display:inline-block;float:left;border:1px solid #AA4444; border-radius: 5px;">
+            <h2>Typescript to PHP Compiler</h2>
+
+            <div class="btn btn-primary" ng-click="app.php.scan()">Scan for RPC files</div>
+            <div class="btn btn-primary" ng-click="app.php.compile()">Compile files</div>
+            <table class="table table-condensed table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>
+                            <h4>Filenname</h4>
+                        </td>
+                        <td>
+                            <h4>Status</h4>
+                        </td>
+                        <td>
+                            <h4>Output</h4>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in app.php.files track by $index">
+                        <td>
+                            <h4 class="text-primary">{{file.name}}</h4>
+                        </td>
+                        <td>
+                            <h4 ng-class="file.compiled && 'text-warning' || 'text-primary'">{{file.status}}</h4>
+                        </td>
+                        <td>
+                            <h4 class="text-primary" ng-repeat="name in file.output track by $index">{{name}}</h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>php.html uses the typescript-php compiler developed in the <a href="http://cretz.github.io/pratphall/">Pratphall project</a>;</p>
+            <p>it compiler typescript files into php files; <span class="text-danger">generic types are not supported and will cause no code output; make sure this is no generic types in your typscript codes;</span></p>
+            <p>to call php functions, you need to have a php function definition file 'all.d.ts';</p>
+            <p>To mark a Typesript(*.ts) file for php compiler, you must put '//php' in the first line. <span class="text-danger">//php include 'data' 'service'</span> at the beginning of the file would tell the compiler to include 'data.php' and 'service.php'.</p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="ext/angular.js"></script>
+    <script type="text/javascript" src="ngstd.js"></script>
+    <script type="text/javascript" src="stringutil.js"></script>
+    <script type="text/javascript" src="ext/pratphall.js"></script>
+    <script type="text/javascript" src="pcr.js"></script>
+</body>
+</html>

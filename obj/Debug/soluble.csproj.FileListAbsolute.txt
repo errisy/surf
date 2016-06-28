@@ -1,0 +1,8 @@
+c:\HTTP\soluble\soluble\obj\Debug\soluble.csprojResolveAssemblyReference.cache
+c:\HTTP\soluble\soluble\bin\soluble.dll.config
+c:\HTTP\soluble\soluble\bin\soluble.dll
+c:\HTTP\soluble\soluble\bin\soluble.pdb
+c:\HTTP\soluble\soluble\obj\Debug\soluble.dll
+c:\HTTP\soluble\soluble\obj\Debug\soluble.pdb
+C:\HTTP\soluble\soluble\bin\soluble.dll.CodeAnalysisLog.xml
+C:\HTTP\soluble\soluble\bin\soluble.dll.lastcodeanalysissucceeded

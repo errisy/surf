@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PSSS Distributor Computation Client</title>
+    <link rel="stylesheet" type="text/css" href="ext/bootstrap.css" />
+    <link rel="stylesheet" href="ext/angular-material.min.css" />
+    <link rel="stylesheet" href="ext/angucomplete-alt.css" />
+    <link rel="stylesheet" href="ngstd.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script type="text/javascript" src="ext/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="ext/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="ext/jquery.cookie.js"></script>
+    <script type="text/javascript" src="ext/bootstrap.min.js"></script>
+    <script type="text/javascript" src="jsutil.js"></script>
+</head>
+<body>
+    <div ng-app="job" ng-controller="job as controller" ng-init="controller.init();">
+        <div cors>
+        </div>
+        <section class="tab">
+            <ul class="nav nav-tabs nav-blue">
+                <li data-toggle="tab" ng-class="{active:controller.mode == 0}">
+                    <a href ng-click="controller.setMode(0)">Home</a>
+                </li>
+                <li data-toggle="tab" ng-class="{active:controller.mode == 1}">
+                    <a href ng-click="controller.setMode(1)">About</a>
+                </li>
+            </ul>
+        </section>
+        <div ng-show="controller.mode == 0">
+            <div ng-if="!controller.isChrome"  style="background-color: #fc0;font-size:18px;"><span style="color: red; font-weight:bold;text-shadow: 1px 1px 2px #fdd;">Warning:</span><span style="color: blue;text-shadow: 1px 1px 2px #aaf;"> We suggest your using Chrome Browser as the V8 javascript engine may allow the codes to run faster.</span></div>
+            <div style="background-color: #fff;font-size:18px;font-weight:bold;">
+                <span style="color: #c44; text-shadow: 1px 1px 2px #fdd;">
+                    Calculation Task ID:
+                </span>
+                <span style="color: #44c;text-shadow: 1px 1px 2px #aaf;">
+                    {{controller.jobID}}
+                </span>
+            </div>            
+            <div style="background-color: #cef;font-size:18px;">
+                <span style="color: blue; font-weight:bold;text-shadow: 1px 1px 2px #fdd;">
+                    Status:
+                </span>
+                <span style="color: black;text-shadow: 1px 1px 2px #aaf;"> 
+                    {{controller.status}}
+                </span>
+            </div>
+            <div style="background-color: #cef;font-size:18px;">
+                <span style="color: blue; font-weight:bold;text-shadow: 1px 1px 2px #fdd;">
+                    Left:
+                </span>
+                <span style="color: black;text-shadow: 1px 1px 2px #aaf;">
+                    {{controller.left}}
+                </span>
+                <span style="color: blue; font-weight:bold;text-shadow: 1px 1px 2px #fdd;">
+                    Total:
+                </span>
+                <span style="color: black;text-shadow: 1px 1px 2px #aaf;">
+                    {{controller.total}}
+                </span>
+                <span style="color: blue; font-weight:bold;text-shadow: 1px 1px 2px #fdd;">
+                    Number of Active Clients:
+                </span>
+                <span style="color: black;text-shadow: 1px 1px 2px #aaf;">
+                    {{controller.numberOfClient}}
+                </span>
+            </div>
+            <div ng-show="controller.mode != 2 && controller.mode != 6">
+                <div>Total : {{controller.jobs.length}} Structures.</div>
+                <table class="table product-table">
+                    <thead>
+                        <tr>
+                            <td title="Structure ID at RCSB">Structure</td>
+                            <td title="Names of Chain">Chain</td>
+                            <td title="Calculation Progress">Progress</td>
+                            <td title="Calculation Creation Time">Create</td>
+                            <td title="Elapsed Time">Time</td>
+                            <td title="Last Report Time">Last Report</td>
+                            <td title="Results on PSSS Server">Result</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="job in controller.jobs">
+                            <td>
+                                <a ng-href="http://www.rcsb.org/pdb/explore/explore.do?structureId={{job.structure}}" target="_{{job.structure}}">{{job.structure}}</a>
+                            </td>
+                            <td>
+                                <span> {{job.chain}} </span>
+                            </td>
+                            <td>
+                                {{job.progress}}
+                            </td>
+                            <td>
+                                {{job.create| date:'yyyy-MM-dd HH:mm:ss Z'}}
+                            </td>
+                            <td>
+                                {{job.time}}
+                            </td>
+                            <td>
+                                {{job.lastReport}}
+                            </td>
+                            <td>
+                                <a ng-href="psdb/{{job.result}}.json" target="_{{job.result}}">{{job.result}}</a>
+                            </td>
+                            <!--<td>
+                                <div class="btn btn-primary" ng-click="job.beginSearch()">Start</div>
+                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--<div sequence chain="controller.chain">
+
+        </div>
+        
+        <div style="width: 800px; height: 500px;" three ready="controller.threeReady">
+
+        </div>-->
+        <div ng-show="controller.mode == 1">
+            <h2 style="color: #222;text-shadow: 2px 2px 3px #ddf;"> Protein Solubility/Stability Scores for Protein Engineering and Metabolic Engineering</h2>
+            <div style="color: #333;text-shadow: 2px 2px 3px #ddf; font-size:18px; text-wrap:normal;">
+                This is a distributed computation client for PSSS. It will download PDB file from <a href="http://www.rcsb.org/">RCSB</a> and calculate the amino residue depths 
+                with our algorithm in publication. This algorithm calculate the residue depth in favor of predicting effect of hydrophilic/hydrophobic residue replacement.
+            </div>
+        </div>
+        <div style="background-color: honeydew;">
+            If you find this web app useful in your study, please cite our upcoming publication in your work.
+        </div>
+        <div style="background-color: lemonchiffon;">
+            Developed by <a href="http://researchers.uq.edu.au/researcher/8987" target="_zyshi">Zhenyu Shi</a>, please contact <a href="mailto:z.shi@uq.edu.au">z.shi@uq.edu.au</a> for any questions or errors.
+        </div>
+    </div>
+
+    <script type="text/javascript" src="ext/angular.js"></script>
+    <script type="text/javascript" src="ext/angular-animate.min.js"></script>
+    <script type="text/javascript" src="ext/angular-aria.min.js"></script>
+    <script type="text/javascript" src="ext/angular-messages.min.js"></script>
+    <script type="text/javascript" src="ext/moment.js"></script>
+    <script type="text/javascript" src="ext/angular-material.min.js"></script>
+    <script type="text/javascript" src="ext/md5.js"></script>
+    <script type="text/javascript" src="ext/ace.js"></script>
+    <script type="text/javascript" src="ext/art.js"></script>
+    <script type="text/javascript" src="angucomplete-alt.js"></script>
+    <script type="text/javascript" src="stringutil.js"></script>
+    <script type="text/javascript" src="rpcdef.js"></script>
+    <script type="text/javascript" src="ngstd.js"></script>
+    <script type="text/javascript" src="ext/aceeditor.js"></script>
+    <script type="text/javascript" src="proteinutil.js"></script>
+    <script type="text/javascript" src="util/cors.js"></script>
+    <script type="text/javascript" src="kegg/kegg.js"></script>
+    <script type="text/javascript" src="ncbi/ncbi.js"></script>
+    <script type="text/javascript" src="three/three.js"></script>
+    <script type="text/javascript" src="three/dat.gui.min.js"></script>
+    <script type="text/javascript" src="three/OrbitControls.js"></script>
+    <script type="text/javascript" src="pdb/pdb.js"></script>
+    <script type="text/javascript" src="pdb/surface.js"></script>
+    <script type="text/javascript" src="pdb/geometry.js"></script>
+    <script type="text/javascript" src="pdb/geometry2.js"></script>
+    <script type="text/javascript" src="pdb/pdb3D.js"></script>
+    <script type="text/javascript" src="uniprot/uniprot.js"></script>
+    <script type="text/javascript" src="ebi/clustalo.js"></script>
+    <script type="text/javascript" src="viewmodel.js"></script>
+    <script type="text/javascript" src="DepthData.js"></script>
+    <script type="text/javascript" src="JobData.js"></script>
+    <script type="text/javascript" src="IJobClient.js"></script>
+    <script type="text/javascript" src="logClient.js"></script>
+    <script type="text/javascript" src="three/ngThree.js"></script>
+    <script type="text/javascript" src="job.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<types>
+  <type>
+    <description>The output from the tool itself</description>
+    <fileSuffix>txt</fileSuffix>
+    <identifier>out</identifier>
+    <label>Tool Output</label>
+    <mediaType>text/plain</mediaType>
+  </type>
+  <type>
+    <description>Your input sequences as seen by the tool</description>
+    <fileSuffix>txt</fileSuffix>
+    <identifier>sequence</identifier>
+    <label>Input Sequences</label>
+    <mediaType>text/plain</mediaType>
+  </type>
+  <type>
+    <description>The alignment in CLUSTAL format</description>
+    <fileSuffix>clustal</fileSuffix>
+    <identifier>aln-clustal</identifier>
+    <label>Alignment in CLUSTAL format</label>
+    <mediaType>text/x-clustalw-alignment</mediaType>
+  </type>
+  <type>
+    <description>The phylogenetic tree</description>
+    <fileSuffix>ph</fileSuffix>
+    <identifier>phylotree</identifier>
+    <label>Phylogenetic Tree</label>
+    <mediaType>text/plain</mediaType>
+  </type>
+  <type>
+    <description>The percent identity matrix output file</description>
+    <fileSuffix>pim</fileSuffix>
+    <identifier>pim</identifier>
+    <label>Percent Identity Matrix</label>
+    <mediaType>text/plain</mediaType>
+  </type>
+</types>

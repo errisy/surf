@@ -1,0 +1,114 @@
+﻿/*tabcontrol styles*/
+.tabcontrol{
+    display: block;
+    float: left;
+    flex-wrap:wrap;
+}
+.tabitem {
+    position:relative;
+    align-content: center;
+    clear:both;
+    display: inline-flex;
+}
+.btn.tab > div{
+    padding: 1px;
+    display:table-cell;
+    vertical-align:middle;
+}
+.btn.tab{
+    background-color:#e7e7d8;
+    border:1px solid grey;
+    color: black;
+    display:table-cell;
+    vertical-align:middle;
+    border-radius:4px 0px 0px 4px;
+}
+.btn.tab:hover,.btn.tab:focus{
+    background-color: #ffeb9d;
+    color: blue;
+}
+.btn.remove{
+    background-color:honeydew;
+    border:1px solid grey;
+    color: black;
+    display:table-cell;
+    vertical-align:middle;
+    border-radius:0px 4px 4px 0px;
+}
+.btn.remove:hover,.btn.remove:focus{
+    background-color: #fffeb6;
+}
+.btn.tab.selected{
+    background-color: white;
+    border:1px solid grey;
+    color: blue;
+}
+.btn.tab.selected:hover,.btn.tab.selected:focus{
+    background-color: #fffeb6;
+    color: blue;
+}
+.close,.close:hover,.close:focus{
+    z-index:-1;
+    opacity: 100;
+}
+.close > line{
+    stroke:red;
+    stroke-width: 2px;
+}
+.close:hover > line{
+    stroke:darkred;
+    stroke-width: 2px;
+}
+.close:focus > line{
+    stroke:darkred;
+    stroke-width: 2px;
+}
+
+
+/*file button styles*/
+div.fileupload {
+	position: relative;
+    overflow: hidden; /*make sure the 'button' of input[file] is hidden, so the cursor:pointer will work on the input element.*/
+}
+div.fileupload > div {
+    position: absolute;
+}
+div.fileupload > input[type="file"] {
+	position: absolute;
+	text-align: right;
+	filter:alpha(opacity: 0); /*this will hide the file input element, so you will only see the wrapper div element.*/
+	opacity: 0;
+    cursor: pointer; /*this style actually only works on the div element. */
+    left:-100px;
+    top:0px;
+    width: 5000px; /*set up a width that a button can not reach*/
+    height: 3000px; /*set up a height that a button can not reach*/
+}
+
+div[openfile] {
+	position: relative;
+    overflow: hidden; /*make sure the 'button' of input[file] is hidden, so the cursor:pointer will work on the input element.*/
+}
+div[openfile] > div {
+    position: absolute;
+}
+div[openfile] > input[type="file"] {
+	position: absolute;
+	text-align: right;
+	filter:alpha(opacity: 0); /*this will hide the file input element, so you will only see the wrapper div element.*/
+	opacity: 0;
+    cursor: pointer; /*this style actually only works on the div element. */
+    left:-100px;
+    top:0px;
+    width: 5000px; /*set up a width that a button can not reach*/
+    height: 3000px; /*set up a height that a button can not reach*/
+}
+
+/*ribbon menu*/
+.btn.menu{
+    background: none;
+}
+.btn.menu:hover{
+    background-color: #ffeda5;
+    color: blue;
+}

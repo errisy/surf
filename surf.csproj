@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{2EFF0447-AB19-48D1-9FA9-7F212074B469}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="angucomplete-alt.js" />
+    <Content Include="app.css" />
+    <Content Include="ext\ace.js" />
+    <Content Include="ext\angucomplete-alt.css" />
+    <Content Include="ext\angular-animate.min.js" />
+    <Content Include="ext\angular-aria.min.js" />
+    <Content Include="ext\angular-material.min.css" />
+    <Content Include="ext\angular-material.min.js" />
+    <Content Include="ext\angular-messages.min.js" />
+    <Content Include="ext\angular.js" />
+    <Content Include="ext\bootstrap.css" />
+    <Content Include="ext\bootstrap.min.js" />
+    <Content Include="ext\jquery-1.11.3.min.js" />
+    <Content Include="ext\jquery-migrate-1.2.1.min.js" />
+    <Content Include="ext\jquery.cookie.js" />
+    <Content Include="ext\md5.js" />
+    <Content Include="ext\mode-javascript.js" />
+    <Content Include="ext\moment.js" />
+    <Content Include="ext\pratphall.js" />
+    <Content Include="ext\theme-monokai.js" />
+    <Content Include="index.html" />
+    <Content Include="job.html" />
+    <Content Include="jsutil.js" />
+    <Content Include="log.txt" />
+    <Content Include="ngstd.css" />
+    <Content Include="nill.html" />
+    <Content Include="pcr.html" />
+    <Content Include="structure.html" />
+    <Content Include="style.css" />
+    <Content Include="three\dat.gui.min.js" />
+    <Content Include="three\OrbitControls.js" />
+    <Content Include="three\Three.js" />
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="all.d.ts" />
+    <TypeScriptCompile Include="ext\art.ts" />
+    <TypeScriptCompile Include="definitelyTyped\angular.d.ts" />
+    <TypeScriptCompile Include="definitelyTyped\jqueryui.d.ts" />
+    <TypeScriptCompile Include="DepthData.ts" />
+    <TypeScriptCompile Include="ebi\clustalo.ts" />
+    <TypeScriptCompile Include="ext\ace.d.ts" />
+    <TypeScriptCompile Include="ext\aceeditor.ts" />
+    <TypeScriptCompile Include="IJob.ts" />
+    <TypeScriptCompile Include="IJobClient.ts" />
+    <TypeScriptCompile Include="index.ts" />
+    <TypeScriptCompile Include="cfdef.ts" />
+    <TypeScriptCompile Include="definitelyTyped\jquery.cookie.d.ts" />
+    <TypeScriptCompile Include="definitelyTyped\jquery.d.ts" />
+    <TypeScriptCompile Include="job.ts" />
+    <TypeScriptCompile Include="JobData.ts" />
+    <TypeScriptCompile Include="JobService.ts" />
+    <TypeScriptCompile Include="kegg\kegg.ts" />
+    <TypeScriptCompile Include="definitelyTyped\moment.d.ts" />
+    <TypeScriptCompile Include="log.ts" />
+    <TypeScriptCompile Include="logClient.ts" />
+    <TypeScriptCompile Include="LogService.ts" />
+    <TypeScriptCompile Include="mysqli.ts" />
+    <TypeScriptCompile Include="ncbi\ncbi.ts" />
+    <TypeScriptCompile Include="ngstd.ts" />
+    <TypeScriptCompile Include="pcr.ts" />
+    <TypeScriptCompile Include="definitelyTyped\pratphall.d.ts" />
+    <TypeScriptCompile Include="pdb\geometry2.ts" />
+    <TypeScriptCompile Include="pdb\pdb.ts" />
+    <TypeScriptCompile Include="pdb\geometry.ts" />
+    <TypeScriptCompile Include="pdb\pdb3d.ts" />
+    <TypeScriptCompile Include="pdb\surface.ts" />
+    <TypeScriptCompile Include="structure.ts" />
+    <TypeScriptCompile Include="three\ngThree.ts" />
+    <TypeScriptCompile Include="three\three-orbitcontrols.d.ts" />
+    <TypeScriptCompile Include="three\three.d.ts" />
+    <TypeScriptCompile Include="proteinutil.ts" />
+    <TypeScriptCompile Include="rpcdef.ts" />
+    <TypeScriptCompile Include="stringutil.ts" />
+    <TypeScriptCompile Include="uniprot\uniprot.ts" />
+    <TypeScriptCompile Include="util\cors.ts" />
+    <TypeScriptCompile Include="viewmodel.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="captcha.php" />
+    <Content Include="pcr.php" />
+    <Content Include="phputil.php" />
+    <Content Include="LogService.php" />
+    <Content Include="JobService.php" />
+    <Content Include="theme.less" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>surf</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54461</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:54461/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+</Project>
