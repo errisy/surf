@@ -12,9 +12,9 @@
         else {
             this.jobID = 'Any';
         }
-        if (!JobTest){
-            this.fetchJob();
-        }
+        //if (!JobTest){
+        //    this.fetchJob();
+        //}
     }
     public isChrome = !!window.chrome && !!window.chrome.webstore;
     public mode: number =0 ;
@@ -27,10 +27,19 @@
     public left: number = 0;
     public total: number = 0;
     public numberOfClient: number = 0;
-    public fetchJob = () => {
-        this.status = 'Obtaining Calculation Task...';
-        JobServiceClient.Manager.applyForJob(this.jobID, this.fetchJobCallback);
+    public structureID: string = '4NX8';
+    public chainID: string = 'A';
+    public addNew = () => {
+        let job = new CalculationJob();
+        job.structure = this.structureID;
+        job.chain = this.chainID;
+        this.jobs.push(job);
+        job.start();
     }
+    //public fetchJob = () => {
+    //    this.status = 'Obtaining Calculation Task...';
+    //    JobServiceClient.Manager.applyForJob(this.jobID, this.fetchJobCallback);
+    //}
     public three: ngThree.ThreeObject;
     public on3DClicked(intersects: THREE.Intersection[]) {
         console.log(intersects);
@@ -55,15 +64,15 @@
             console.log(task);
         }
         else {
-            this.left = task.left;
-            this.total = task.total;
-            this.numberOfClient = task.numberOfClients;
+            //this.left = task.left;
+            //this.total = task.total;
+            //this.numberOfClient = task.numberOfClients;
             var job = new CalculationJob();
             var m = /^(\w+)_(\w+)/.Match(task.structureID);
             job.structure = m.groups[1];
             job.chain = m.groups[2];
             job.render = this.three;
-            job.onFinish = this.onFinish;
+            //job.onFinish = this.onFinish;
             job.onReport = this.onReport;
             job.lastReport = task.startTime;
             job.lastReportTime = moment().toDate();
@@ -128,28 +137,6 @@
         JobServiceClient.Manager.finishJob(this.jobID, chain, callback);
     }
 
-    //public JobFinishCallback = (response: Solubility.JobFinishResponse) => {
-    //    if (typeof response == 'string') {
-    //        this.status = 'Error when Obtaining Calculation Task.';
-    //        console.log(response);
-    //    }
-    //    else {
-    //        console.log('recenved next job:', response);
-    //        this.left = response.left;
-    //        this.total = response.total;
-    //        this.numberOfClient = response.numberOfClients;
-    //        var job = new CalculationJob();
-    //        var m = /^(\w+)_(\w+)/.Match(response.nextStructureID);
-    //        job.structure = m.groups[1];
-    //        job.chain = m.groups[2];
-    //        job.render = this.three;
-    //        job.onFinish = this.onFinish;
-    //        this.jobs.push(job);
-    //        this.status = 'Calculation Task Obtained.';
-    //        job.start();
-    //        //start to run the job
-    //    }
-    //}
     public chain: Solubility.ChainData; 
 }
 class CalculationJob {
@@ -166,6 +153,7 @@ class CalculationJob {
     public onReport: (job: CalculationJob) => void;
     public onFinish: (data: CalculationJob, chain: Solubility.ChainData) => void;
     public proteinChain: Chain;
+    public surface: string = '';
     public start = () => {
         this.create = moment().toDate();
         this.progress = 'Downloading PDF file...';
@@ -173,7 +161,6 @@ class CalculationJob {
     }
     public downloadCallback = (value: string) => {
         //get id from header:
-        
         
         this.progress = 'Analyzing PDB file...';
         var protein = PDBParser.parsePDB(value);
@@ -211,18 +198,18 @@ class CalculationJob {
             //pdb3d.presentResidueWithCuttingWaterball(this.render, entry, builders);
         }
 
-        if (moment.duration(moment().diff(this.lastReportTime)).asSeconds() > 30) {
-            this.lastReportTime = moment().toDate();
-            if (this.onReport) this.onReport(this);
-        }
-        if (this.entries.length > 0) {// && this.total - this.entries.length < 10
+        //if (moment.duration(moment().diff(this.lastReportTime)).asSeconds() > 30) {
+        //    this.lastReportTime = moment().toDate();
+        //    if (this.onReport) this.onReport(this);
+        //}
+        if (this.entries.length > 0 && !this.cancelled) {// && this.total - this.entries.length < 10
             //if (!JobTest)
-
-                CORS.timeout(this.beginSearch, 2);
+            this.surface = this.proteinChain.data.value;
+            CORS.timeout(this.beginSearch, 2);
         }
         else {
-            this.progress = 'All ' + this.total + ' Residues Analyzed'
-            var data = this.proteinChain.data;
+            this.progress = (this.total - this.entries.length) + ' of ' + this.total + ' Residues Analyzed'
+            //var data = this.proteinChain.data;
             
             //console.log(data);
             var opt: pdb3dOptions = <any>{};
@@ -230,11 +217,15 @@ class CalculationJob {
             opt.highlightSurface = true;
             opt.radiusFactor = 0.5;
             //pdb3d.presentChainAtoms(this.render, this.proteinChain, opt);
+            this.surface = this.proteinChain.data.value;
             this.proteinChain = null;//release data for memory;
-            if (this.onFinish) this.onFinish(this, data);
+            //if (this.onFinish) this.onFinish(this, data);
         }
-
     }
+    public cancel = () => {
+        this.cancelled = true;
+    }
+    public cancelled: boolean = false;
     public total: number = 0;
     public atoms: Atom[] = [];
     public entries: SurfaceSearchEntry[] = [];

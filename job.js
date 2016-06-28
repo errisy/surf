@@ -10,9 +10,14 @@ var JobController = (function () {
         this.left = 0;
         this.total = 0;
         this.numberOfClient = 0;
-        this.fetchJob = function () {
-            _this.status = 'Obtaining Calculation Task...';
-            JobServiceClient.Manager.applyForJob(_this.jobID, _this.fetchJobCallback);
+        this.structureID = '4NX8';
+        this.chainID = 'A';
+        this.addNew = function () {
+            var job = new CalculationJob();
+            job.structure = _this.structureID;
+            job.chain = _this.chainID;
+            _this.jobs.push(job);
+            job.start();
         };
         this.threeReady = function (obj) {
             if (JobTest) {
@@ -34,15 +39,15 @@ var JobController = (function () {
                 console.log(task);
             }
             else {
-                _this.left = task.left;
-                _this.total = task.total;
-                _this.numberOfClient = task.numberOfClients;
+                //this.left = task.left;
+                //this.total = task.total;
+                //this.numberOfClient = task.numberOfClients;
                 var job = new CalculationJob();
                 var m = /^(\w+)_(\w+)/.Match(task.structureID);
                 job.structure = m.groups[1];
                 job.chain = m.groups[2];
                 job.render = _this.three;
-                job.onFinish = _this.onFinish;
+                //job.onFinish = this.onFinish;
                 job.onReport = _this.onReport;
                 job.lastReport = task.startTime;
                 job.lastReportTime = moment().toDate();
@@ -114,9 +119,9 @@ var JobController = (function () {
         else {
             this.jobID = 'Any';
         }
-        if (!JobTest) {
-            this.fetchJob();
-        }
+        //if (!JobTest){
+        //    this.fetchJob();
+        //}
     }
     JobController.prototype.on3DClicked = function (intersects) {
         console.log(intersects);
@@ -128,6 +133,7 @@ var CalculationJob = (function () {
     function CalculationJob() {
         var _this = this;
         this.options = new SurfaceSearchOptions(0.8, 1.2, 0.165, 0.1);
+        this.surface = '';
         this.start = function () {
             _this.create = moment().toDate();
             _this.progress = 'Downloading PDF file...';
@@ -164,29 +170,32 @@ var CalculationJob = (function () {
                 //var builders = SurfaceSearch.Search(entry, this.options);
                 var isSurface = SurfaceSearch.Test(entry, _this.options);
             }
-            if (moment.duration(moment().diff(_this.lastReportTime)).asSeconds() > 30) {
-                _this.lastReportTime = moment().toDate();
-                if (_this.onReport)
-                    _this.onReport(_this);
-            }
-            if (_this.entries.length > 0) {
+            //if (moment.duration(moment().diff(this.lastReportTime)).asSeconds() > 30) {
+            //    this.lastReportTime = moment().toDate();
+            //    if (this.onReport) this.onReport(this);
+            //}
+            if (_this.entries.length > 0 && !_this.cancelled) {
                 //if (!JobTest)
+                _this.surface = _this.proteinChain.data.value;
                 CORS.timeout(_this.beginSearch, 2);
             }
             else {
-                _this.progress = 'All ' + _this.total + ' Residues Analyzed';
-                var data = _this.proteinChain.data;
+                _this.progress = (_this.total - _this.entries.length) + ' of ' + _this.total + ' Residues Analyzed';
+                //var data = this.proteinChain.data;
                 //console.log(data);
                 var opt = {};
                 opt.hideSurface = false;
                 opt.highlightSurface = true;
                 opt.radiusFactor = 0.5;
                 //pdb3d.presentChainAtoms(this.render, this.proteinChain, opt);
+                _this.surface = _this.proteinChain.data.value;
                 _this.proteinChain = null; //release data for memory;
-                if (_this.onFinish)
-                    _this.onFinish(_this, data);
             }
         };
+        this.cancel = function () {
+            _this.cancelled = true;
+        };
+        this.cancelled = false;
         this.total = 0;
         this.atoms = [];
         this.entries = [];
