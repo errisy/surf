@@ -630,7 +630,7 @@ class SurfaceSearchOptions {
     }
     public centerAtomFactor: number = 1.2;
     public subtractAtomFactor: number = 1.2;
-    public testRadius: number = 0.20;
+    public testRadius: number = 0.168;
     public defaultRadius: number = 0.13;
 }
 
@@ -655,6 +655,19 @@ class SurfaceSearch {
             default:
                 console.log('error in radius');
                 throw 'error in radius';
+        }
+    }
+    static AtomFactor(name: 'C' | 'S' | 'O' | 'N', type: string) {
+        const HydrophobicFactor: number = 1.6;
+        switch (name) {
+            case 'C':
+                return HydrophobicFactor;
+            case 'S':
+                return HydrophobicFactor;
+            case 'N':
+                return 1;
+            case "O":
+                return 1;
         }
     }
     static Search(entry: SurfaceSearchEntry, options: SurfaceSearchOptions): PolyhedronBuilder2[] {

@@ -605,7 +605,7 @@ var SurfaceSearchOptions = (function () {
     function SurfaceSearchOptions(hydrophilicFactor, hydrophobicFactor, testRadius, defaultRadius) {
         this.centerAtomFactor = 1.2;
         this.subtractAtomFactor = 1.2;
-        this.testRadius = 0.20;
+        this.testRadius = 0.168;
         this.defaultRadius = 0.13;
         if (typeof hydrophilicFactor == 'number' && !isNaN(hydrophilicFactor))
             this.centerAtomFactor = hydrophilicFactor;
@@ -640,6 +640,19 @@ var SurfaceSearch = (function () {
             default:
                 console.log('error in radius');
                 throw 'error in radius';
+        }
+    };
+    SurfaceSearch.AtomFactor = function (name, type) {
+        var HydrophobicFactor = 1.6;
+        switch (name) {
+            case 'C':
+                return HydrophobicFactor;
+            case 'S':
+                return HydrophobicFactor;
+            case 'N':
+                return 1;
+            case "O":
+                return 1;
         }
     };
     SurfaceSearch.Search = function (entry, options) {
