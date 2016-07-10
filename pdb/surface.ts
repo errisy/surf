@@ -165,7 +165,6 @@ class ResidueStatus {
     public index: number;
     public isSurface: boolean;
 }
-
 class Residue {
     public index: number;
     public atoms: Atom[] = [];
@@ -852,7 +851,6 @@ class SurfaceSearch {
             return rs.IsSurface;
         }
     }
-
 }
 
 class dichotomize {

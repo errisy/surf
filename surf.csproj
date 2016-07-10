@@ -43,7 +43,6 @@
     <Content Include="ext\pratphall.js" />
     <Content Include="ext\theme-monokai.js" />
     <Content Include="index.html" />
-    <Content Include="job.html" />
     <Content Include="jsutil.js" />
     <Content Include="log.txt" />
     <Content Include="ngstd.css" />
@@ -67,7 +66,6 @@
     <TypeScriptCompile Include="ext\aceeditor.ts" />
     <TypeScriptCompile Include="IJob.ts" />
     <TypeScriptCompile Include="IJobClient.ts" />
-    <TypeScriptCompile Include="index.ts" />
     <TypeScriptCompile Include="cfdef.ts" />
     <TypeScriptCompile Include="definitelyTyped\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="definitelyTyped\jquery.d.ts" />
